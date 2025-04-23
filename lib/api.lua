@@ -172,6 +172,12 @@ local function harvest_and_replant(pos, player)
 				local level1 = node_id .. "_1"
 				-- keep the same paramtype2 = "meshoptions" from lua_api.md
 				minetest.set_node(pos, { name = level1, param2 = node.param2 })
+				-- need to remove seed again for Mineclonia, because it dropped seeds.
+				minetest.after(0,function()
+					if not is_creative(playername) then
+						invref:remove_item("main", seeds)
+					end
+				end)
 			else
 				minetest.set_node(pos, { name = seeds, param2 = 1 })
 			end
